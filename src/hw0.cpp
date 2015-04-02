@@ -48,6 +48,24 @@ ARGUMENT ORAGNIZATION
 ==========================================================================
 */
 
+std::vector<std::string> conn_vector;
+
+void find_connectors(std::string &input){
+	for(unsigned i=0;i<input.size();++i){
+		if(input.at(i) == ';') conn_vector.push_back(";");
+		else if(i != input.size() - 1){
+			if(input.at(i) == '|' && input.at(i + 1) == '|'){
+				conn_vector.push_back("||");
+				++i;
+			}
+			else if(input.at(i) == '&' && input.at(i + 1) == '&'){
+				conn_vector.push_back("&&");
+				++i;
+			}
+		}
+	}
+}
+
 
 void token_comment(char *arr){
 	arr = strtok(arr, "#");
@@ -99,7 +117,6 @@ void token_spaces(char **argv, std::vector<char**>& argv_arr, int argc){
 		argv_arr.at(argument) = temp;
 		++argument;
 		word = 0;
-		delete temp;
 	}
 	return;
 }
@@ -132,14 +149,19 @@ void execute_cmds(std::vector<char**> &argv_arr){
 			char **temp = argv_arr.at(i);
 			int cmd_status = execvp(temp[0], temp);
 			if(cmd_status == -1) perror("execvp");
-			exit(1);
 		}
 		else{
 			int ret;
 			waitpid(fork_pid, &ret, 0);
-			if(ret == 0); 
-			else; 	
+			if(0 < conn_vector.size() && i < conn_vector.size()){
+				if(ret == 0){
+					if(conn_vector.at(i) == "||") return;
+				}
+				else{
+					if(conn_vector.at(i) == "&&") return;
+				}
 			}
+		}
 	}
 	return;
 }
@@ -161,6 +183,8 @@ int main()
 
 		token_comment(input_cstring);
 
+		find_connectors(input_string);
+
 		char **argv = new char *[size];
 
 		int argc = token_connectors(input_cstring, argv);
@@ -170,6 +194,8 @@ int main()
 		token_spaces(argv, argv_arr, argc);
 
 		execute_cmds(argv_arr);
+
+		conn_vector.clear();
 
 //		disp_3d_arr(argv_arr, argc);
 	}
