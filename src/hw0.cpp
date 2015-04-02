@@ -144,11 +144,15 @@ void execute_cmds(std::vector<char**> &argv_arr){
 	unsigned i=0;
 	for(;i < argv_arr.size();++i){
 		int fork_pid = fork();	
+		char **temp = argv_arr.at(i);
 		if(fork_pid == -1) perror("fork");
 		else if(fork_pid == 0){															//If inside Child process branch
-			char **temp = argv_arr.at(i);
 			int cmd_status = execvp(temp[0], temp);
-			if(cmd_status == -1) perror("execvp");
+			if(cmd_status == -1){
+				perror("execvp");
+				exit(1);
+			}
+			else exit(0);
 		}
 		else{
 			int ret;
@@ -172,7 +176,7 @@ int main()
 	std::cout << "$ ";
 	std::string input_string;
 	getline(std::cin, input_string);
-	if(input_string == "exit") exit(0);
+	if(input_string == "exit") return 0;
 	if(input_string.at(0) != '#'){
 
 		int size = input_string.size() + 1;
@@ -196,6 +200,9 @@ int main()
 		execute_cmds(argv_arr);
 
 		conn_vector.clear();
+
+		delete input_cstring;
+		delete argv;
 
 //		disp_3d_arr(argv_arr, argc);
 	}
