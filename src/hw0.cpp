@@ -33,10 +33,6 @@ CALL: char *strtok(char *str, const char *delim)
 RETURN: Returns pointer to the next token
 		Returns NULL if there are no more tokens
 ==========================================================================
-
-
-
-==========================================================================
 ARGUMENT ORAGNIZATION
 --------------------------------------------------------------------------
 1. Get user input as string
@@ -45,6 +41,16 @@ ARGUMENT ORAGNIZATION
 4. Initialize 2D char array
 4. Tokenize connectors ';' '||' '&&'
 6. Fill 2D char array with tokenized segments (each segment is an arg line)
+==========================================================================
+EXTRA CREDIT FUNCTIONS
+--------------------------------------------------------------------------
+CALL: char *getlogin(void)
+RETURN: Returns char pointer to the username on success
+		Returns NULL on failure
+--------------------------------------------------------------------------
+CALL: int gethostname(char *name, size_t len)
+RETURN: char *name contains the NULL terminated host-name cstring
+		size_t len contains length of the host-name
 ==========================================================================
 */
 
@@ -66,13 +72,9 @@ void find_connectors(std::string &input){
 	}
 }
 
-
 void token_comment(char *arr){
 	arr = strtok(arr, "#");
 }
-
-	
-	
 
 int token_connectors(char *cstr, char **argv){
 	int argc=0;
@@ -103,7 +105,6 @@ Description:
 		of its elements
 ========================================================================
 */
-
 void token_spaces(char **argv, std::vector<char**>& argv_arr, int argc){
 	int argument = 0;
 	int word = 0;
@@ -120,7 +121,6 @@ void token_spaces(char **argv, std::vector<char**>& argv_arr, int argc){
 	}
 	return;
 }
-
 /*
 ==========================================================================
 EXECUTE_CMDS
@@ -145,6 +145,8 @@ void execute_cmds(std::vector<char**> &argv_arr){
 	for(;i < argv_arr.size();++i){
 		int fork_pid = fork();	
 		char **temp = argv_arr.at(i);
+		if(temp[0][0] == 'e' && temp[0][1] == 'x' && temp[0][2] == 'i'
+		&& temp[0][3] == 't' && temp[0][4] == '\0') exit(0);
 		if(fork_pid == -1) perror("fork");
 		else if(fork_pid == 0){															//If inside Child process branch
 			int cmd_status = execvp(temp[0], temp);
@@ -170,9 +172,32 @@ void execute_cmds(std::vector<char**> &argv_arr){
 	return;
 }
 
+void print_info(){
+	char *login = getlogin();
+	if(login == NULL){
+		perror("getlogin");
+		std::cout << "unknown_user";
+	}
+	else{
+		for(int i=0;login[i]!='\0';++i)std::cout<<login[i];
+	}
+	std::cout << '@';
+	char hostname[64];
+	size_t length = 0;
+	int host_status = gethostname(hostname, sizeof(hostname));
+	if(host_status == -1){
+		perror("gethostname");
+		std::cout << "unknown_host";
+	}
+	else{
+		for(int j=0;hostname[j]!='\0';++j)std::cout<<hostname[j];
+	}
+}
+
 int main()
 {
 	while(1){
+	print_info();
 	std::cout << "$ ";
 	std::string input_string;
 	getline(std::cin, input_string);
