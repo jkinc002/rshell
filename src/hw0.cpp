@@ -116,6 +116,8 @@ void token_spaces(char **argv, std::vector<char**>& argv_arr, int argc){
 			temp[word] = strtok(NULL, " ");
 		}
 		argv_arr.at(argument) = temp;
+		temp = NULL;
+		delete temp;
 		++argument;
 		word = 0;
 	}
@@ -183,7 +185,6 @@ void print_info(){
 	}
 	std::cout << '@';
 	char hostname[64];
-	size_t length = 0;
 	int host_status = gethostname(hostname, sizeof(hostname));
 	if(host_status == -1){
 		perror("gethostname");
