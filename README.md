@@ -45,10 +45,25 @@ hw0.cpp
 
 exec.script
 
+##Running rshell
+
+Perform these commands to download and run the program:
+```
+	$ git clone https://github.com/jkinc002/rshell
+	$ cd rshell
+	$ git checkout hw0
+	$ make
+	$ bin/rshell
+```
+
 ##Known Bugs
 
-Memory Leaks - When utilizing valgrind to record memory usage, a few memory allocations are never made free.
+Memory Leaks - When utilizing valgrind to record memory usage, a few memory allocations are shown to have never been made free.
 
 White space only - The program seg-faults whenever a command (whether on its own or between connectors) consists of ONLY whitespace.
+
+Username display - Running rshell after running 'script exec.script' causes the username to not be displayed properly. The name displays normally again after ending the script session.
+
+Argument limit - The program seg-faults if a single argument (not including neighboring arguments) contains +1024 words (characters separated by spaces).
 
 
