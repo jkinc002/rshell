@@ -203,7 +203,8 @@ int main()
 	std::string input_string;
 	getline(std::cin, input_string);
 	if(input_string == "exit") return 0;
-	if(input_string.at(0) != '#'){
+	if(input_string == "");
+	else if(input_string.at(0) != '#'){
 
 		int size = input_string.size() + 1;
 
