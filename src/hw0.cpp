@@ -105,23 +105,52 @@ Description:
 		of its elements
 ========================================================================
 */
-void token_spaces(char **argv, std::vector<char**>& argv_arr, int argc){
+int execute_cmd(char** temp, unsigned i){
+	int fork_pid = fork();	
+	if(temp[0][0] == 'e' && temp[0][1] == 'x' && temp[0][2] == 'i'
+	&& temp[0][3] == 't' && temp[0][4] == '\0') return 2;
+	if(fork_pid == -1) perror("fork");
+	else if(fork_pid == 0){															//If inside Child process branch
+		int cmd_status = execvp(temp[0], temp);
+		if(cmd_status == -1){
+			perror("execvp");
+			exit(1);
+		}
+		else exit(0);
+	}
+	else{
+		int ret;
+		waitpid(fork_pid, &ret, 0);
+		if(0 < conn_vector.size() && i < conn_vector.size()){
+			if(ret == 0){
+				if(conn_vector.at(i) == "||") return 1;
+			}
+			else{
+				if(conn_vector.at(i) == "&&") return 1;
+			}
+		}
+	}
+
+return 0;
+}
+
+int token_spaces(char **argv, std::vector<char**>& argv_arr, int argc){
 	int argument = 0;
 	int word = 0;
 	while(argument < argc){
-		char **temp = new char *[1024];
+		char *temp[1024];
 		temp[word] = strtok(argv[argument], " ");
 		while(temp[word] != NULL){
 			++word;
 			temp[word] = strtok(NULL, " ");
 		}
-		argv_arr.at(argument) = temp;
-		temp = NULL;
-		delete temp;
+		int ret = execute_cmd(temp, argument);
+		if(ret == 2) return 1;
+		else if(ret == 1) return 0;
 		++argument;
 		word = 0;
 	}
-	return;
+	return 0;
 }
 /*
 ==========================================================================
@@ -142,6 +171,7 @@ Description:
 	}
 ==========================================================================
 */
+/*
 int execute_cmds(std::vector<char**> &argv_arr){
 	unsigned i=0;
 	for(;i < argv_arr.size();++i){
@@ -173,7 +203,7 @@ int execute_cmds(std::vector<char**> &argv_arr){
 	}
 	return 0;
 }
-
+*/
 void print_info(){
 	char *login = getlogin();
 	if(login == NULL){
@@ -222,16 +252,15 @@ int main()
 
 		std::vector<char **> argv_arr(argc);
 
-		token_spaces(argv, argv_arr, argc);
-
-		int ret = execute_cmds(argv_arr);
+		int ret = token_spaces(argv, argv_arr, argc);
 
 		conn_vector.clear();
 
 		delete input_cstring;
 		delete argv;
 
-		if(ret == 1) exit(0);
+		if(ret == 1)exit(0);
+
 
 //		disp_3d_arr(argv_arr, argc);
 	}
