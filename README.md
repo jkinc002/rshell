@@ -58,8 +58,6 @@ Perform these commands to download and run the program:
 
 ##Known Bugs
 
-Memory Leaks - When utilizing valgrind to record memory usage, a few memory allocations are shown to have never been made free.
-
 White space only - The program seg-faults whenever a command (whether on its own or between connectors) consists of ONLY whitespace.
 
 Username display - Running rshell after running 'script exec.script' causes the username to not be displayed properly. The name displays normally again after ending the script session.
