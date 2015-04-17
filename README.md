@@ -66,4 +66,8 @@ Username display - Running rshell after running 'script exec.script' causes the 
 
 Argument limit - The program seg-faults if a single argument (not including neighboring arguments) contains +1024 words (characters separated by spaces).
 
+Connector symbol - Mistyping `&&` as `&`, or `||` as `|`, will cause the connector to behave as a `;` connector.
+
+Sequential connectors - An input such as `$ ls &&;;;;||||&&;; ls` will behave only according to the very first connector in the sequence. ('&&' in this case).
+
 

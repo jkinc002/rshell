@@ -142,13 +142,13 @@ Description:
 	}
 ==========================================================================
 */
-void execute_cmds(std::vector<char**> &argv_arr){
+int execute_cmds(std::vector<char**> &argv_arr){
 	unsigned i=0;
 	for(;i < argv_arr.size();++i){
 		int fork_pid = fork();	
 		char **temp = argv_arr.at(i);
 		if(temp[0][0] == 'e' && temp[0][1] == 'x' && temp[0][2] == 'i'
-		&& temp[0][3] == 't' && temp[0][4] == '\0') exit(0);
+		&& temp[0][3] == 't' && temp[0][4] == '\0') return 1;
 		if(fork_pid == -1) perror("fork");
 		else if(fork_pid == 0){															//If inside Child process branch
 			int cmd_status = execvp(temp[0], temp);
@@ -163,15 +163,15 @@ void execute_cmds(std::vector<char**> &argv_arr){
 			waitpid(fork_pid, &ret, 0);
 			if(0 < conn_vector.size() && i < conn_vector.size()){
 				if(ret == 0){
-					if(conn_vector.at(i) == "||") return;
+					if(conn_vector.at(i) == "||") return 0;
 				}
 				else{
-					if(conn_vector.at(i) == "&&") return;
+					if(conn_vector.at(i) == "&&") return 0;
 				}
 			}
 		}
 	}
-	return;
+	return 0;
 }
 
 void print_info(){
@@ -224,12 +224,14 @@ int main()
 
 		token_spaces(argv, argv_arr, argc);
 
-		execute_cmds(argv_arr);
+		int ret = execute_cmds(argv_arr);
 
 		conn_vector.clear();
 
 		delete input_cstring;
 		delete argv;
+
+		if(ret == 1) exit(0);
 
 //		disp_3d_arr(argv_arr, argc);
 	}
