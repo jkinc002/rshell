@@ -79,22 +79,22 @@ struct dirent {
 */
 void print_cstr(const char* c){
 	struct stat s;
+	int ret = stat(c, &s);
+	if(ret == -1) perror("stat");
+	if(s.st_mode & S_IFDIR){
+		std::cout << "\033[1;34m";
+	}
+	else if(s.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)){
+		std::cout << "\033[1;32m";
+	}
+	if(c[0] == '.'){
+		std::cout << "\033[40m";
+	}
 	for(unsigned i=0;c[i]!='\0';++i){
-		int ret = stat(c, &s);
-		if(ret == -1) perror("stat");
-		if(s.st_mode & S_IFDIR){
-			std::cout << "\033[1;34m";
-		}
-		else if(s.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)){
-			std::cout << "\033[1;32m";
-		}
-		if(c[0] == '.'){
-			std::cout << "\033[40m";
-		}
 		std::cout << c[i];
+	}
 		std::cout << "\033[0;39m";
 		std::cout << "\033[0;49m";
-	}
 }
 
 std::vector<const char*> dirPath;
