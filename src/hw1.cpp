@@ -13,6 +13,8 @@
 #include <queue>
 #include <grp.h>
 #include <pwd.h>
+#include <time.h>
+#include <stdlib.h>
 
 
 
@@ -77,7 +79,9 @@ struct dirent {
 }
 ======================================================================
 */
+
 void print_cstr(const char* c){
+	/*
 	struct stat s;
 	int ret = stat(c, &s);
 	if(ret == -1) perror("stat");
@@ -90,12 +94,62 @@ void print_cstr(const char* c){
 	if(c[0] == '.'){
 		std::cout << "\033[40m";
 	}
+	*/
 	for(unsigned i=0;c[i]!='\0';++i){
 		std::cout << c[i];
 	}
-		std::cout << "\033[0;39m";
-		std::cout << "\033[0;49m";
+	//	std::cout << "\033[0;39m";
+	//	std::cout << "\033[0;49m";
 }
+
+struct date {
+	public:
+		std::string month;
+		std::string space;
+		int day;
+		int hours;
+		int minutes;
+	public:
+		void print_date(){
+			std::cout << month
+			<< ' '
+			<< space
+			<< day
+			<< ' '
+			<< hours
+			<< ':'
+			<< minutes;
+		}
+		void get_values(const time_t *t){
+			struct tm *tm1;
+			tm1 = localtime(t);
+			if(tm1 == NULL){
+				perror("localtime");
+				return;
+			}
+			if(tm1->tm_mon == 0) this->month = "Jan";
+			else if(tm1->tm_mon == 1) this->month = "Feb";
+			else if(tm1->tm_mon == 2) this->month = "Mar";
+			else if(tm1->tm_mon == 3) this->month = "Apr";
+			else if(tm1->tm_mon == 4) this->month = "May";
+			else if(tm1->tm_mon == 5) this->month = "Jun";
+			else if(tm1->tm_mon == 6) this->month = "Jul";
+			else if(tm1->tm_mon == 7) this->month = "Aug";
+			else if(tm1->tm_mon == 8) this->month = "Sep";
+			else if(tm1->tm_mon == 9) this->month = "Oct";
+			else if(tm1->tm_mon == 10) this->month = "Nov";
+			else this->month = "Dec";
+
+			if(tm1->tm_mday >= 10);
+			else this->space = ' ';
+			day = tm1->tm_mday;
+
+			this->hours = tm1->tm_hour;
+			this->minutes = tm1->tm_min;
+		}
+};
+
+
 
 std::vector<const char*> dirPath;
 std::vector<dirent*> file_vector;
@@ -109,7 +163,7 @@ struct l_disp {
 		std::string group;
 		std::string spaces2;
 		off_t file_size;
-		time_t date;
+		date dt;
 		const char* file_name;
 	public:
 		void print(){
@@ -123,9 +177,9 @@ struct l_disp {
 			<< spaces2
 			<< ' '
 			<< file_size
-			<< ' '
-			<< date
 			<< ' ';
+			dt.print_date();
+			std::cout << ' ';
 			print_cstr(file_name);
 			std::cout << '\n';
 		}
@@ -350,7 +404,8 @@ void feed_lvec(const char *c){
 		}
 		l.spaces2 = temp;
 		l.file_size = s.st_size;
-		l.date = s.st_mtime;
+		const time_t *t = &s.st_mtime;
+		l.dt.get_values(t);
 		l.file_name = c;
 		lvec.push(l);
 	}
