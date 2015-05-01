@@ -15,6 +15,7 @@
 #include <pwd.h>
 #include <time.h>
 #include <stdlib.h>
+#include <stack>
 
 #ifndef _LS_H_
 #define _LS_H_
@@ -37,7 +38,8 @@ void sort_v1(){
 	}
 }
 //======================================================================
-std::vector<const char*> v2;
+std::vector<std::string> v2;
+int v2_size = 0;
 //======================================================================
 struct flags {
 	bool a;
@@ -95,7 +97,13 @@ struct path {
 };
 path p;
 //======================================================================
-	
+bool is_dot(const char* c){
+	unsigned i = 0;
+	for(;c[i]!='\0';++i){}
+	--i;
+	if(c[i] == '.') return true;
+	return false;
+}
 //======================================================================
 struct myfile {
 	std::string permissions;
@@ -110,6 +118,7 @@ struct myfile {
 	std::string month;
 	int space3;
 	int day;
+	int space4;
 	int hours;
 	int minutes;
 	const char* name;
@@ -147,6 +156,10 @@ struct myfile {
 		if(s.st_mode & S_IFDIR){
 			this->permissions += 'd';
 			this->directory = true;
+			if(!is_dot(c)){
+				v2.push_back(c);
+				++v2_size;
+			}
 		}
 		else{
 			this->permissions += '-';
@@ -174,7 +187,7 @@ struct myfile {
 		this->hard_links = s.st_nlink;
 		if(this->hard_links >= 1000) this->link_length = 4;
 		else if(this->hard_links >= 100) this->link_length = 3;
-		else if(this->hard_links >= 100) this->link_length = 2;
+		else if(this->hard_links >= 10) this->link_length = 2;
 		else this->link_length = 1;
 
 		struct passwd *pw = getpwuid(s.st_uid);
@@ -210,8 +223,11 @@ struct myfile {
 		if(t->tm_mon == 11) this->month = "Dec";
 
 		this->day = t->tm_mday;
-		if(t->tm_mday >=10) this->space3 = 1;
-		else this->space3 = 0;
+		if(t->tm_mday >=10) this->space3 = 0;
+		else this->space3 = 1;
+
+		if(t->tm_hour >= 10) this->space4 = 0;
+		else this->space4 = 1;
 
 		this->hours = t->tm_hour;
 		this->minutes = t->tm_min;
@@ -228,6 +244,11 @@ struct mydir {
 	std::vector<myfile> v;
 	int link_length;
 	int size_length;
+	void clear(){
+		this->v.clear();
+		this->link_length = 0;
+		this->size_length = 0;
+	}
 	void get_lengths(){
 		this->link_length = 0;
 		this->size_length = 0;
@@ -252,10 +273,12 @@ struct mydir {
 				this->v.at(i).space1 = this->link_length -
 				this->v.at(i).link_length;
 			}
+			else this->v.at(i).space1 = 0;
 			if(this->v.at(i).size_length < this->size_length){
 				this->v.at(i).space2 = this->size_length -
 				this->v.at(i).size_length;
 			}
+			else this->v.at(i).space2 = 0;
 		}
 	}
 	void print_file(unsigned i){
@@ -289,13 +312,17 @@ struct mydir {
 		}
 		std::cout << this->v.at(i).size
 		<< ' '
-		<< this->v.at(i).month;
+		<< this->v.at(i).month
+		<< ' ';
 		for(int k=0;k<this->v.at(i).space3;++k){
 			std::cout << ' ';
 		}
 		std::cout << this->v.at(i).day
-		<< ' '
-		<< this->v.at(i).hours
+		<< ' ';
+		for(int l=0;l<this->v.at(i).space4;++l){
+			std::cout << '0';
+		}
+		std::cout << this->v.at(i).hours
 		<< ':'
 		<< this->v.at(i).minutes
 		<< ' ';
@@ -348,8 +375,31 @@ dirent *my_readdir(DIR *d){
 	return a;
 }
 //======================================================================
+void exec_1(const char *c){
+	if(c[0] == '.' && c[1] == '\0');
+	else p.push_dir(c);
+	DIR *dir = my_opendir(p.get_path());
+	dirent *drt = my_readdir(dir);
+	myfile a;
+	mydir b;
+	while(drt != NULL){
+		a.assign(drt);
+		b.v.push_back(a);
+		drt = my_readdir(dir);
+		a.clear();
+	}
+	my_closedir(dir);
+	b.get_lengths();
+	b.format_files();
+	b.sort_files();
+	if(v1.size() > 1) p.print();
+	b.print_all();
+	p.pop_dir();
+
+}
 void exec_0(const char *c){
-	p.push_dir(c);
+	if(c[0] == '.' && c[1] == '\0');
+	else p.push_dir(c);
 	DIR *dir = my_opendir(c);
 	dirent *drt = my_readdir(dir);
 	myfile a;
@@ -360,13 +410,22 @@ void exec_0(const char *c){
 		drt = my_readdir(dir);
 		a.clear();
 	}
+	my_closedir(dir);
 	b.get_lengths();
 	b.format_files();
 	b.sort_files();
 	if(v1.size() > 1) p.print();
 	b.print_all();
-	my_closedir(dir);
+	if(f.R){
+		while(!v2.empty()){
+			const char* c1 = v2.at(0).c_str();
+			v2.erase(v2.begin());
+			exec_1(c1);
+		}
+	}
 	p.pop_dir();
+	b.clear();
+
 }
 	
 //======================================================================
