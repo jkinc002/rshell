@@ -28,6 +28,7 @@ int main(int argc, const char *argv[])
 	get_flags(argv, argc);
 	for(unsigned i=0;i<v1.size();++i){
 		exec_0(v1.at(i));
+		if(i != v1.size() - 1) std::cout << '\n';
 	}
 
 

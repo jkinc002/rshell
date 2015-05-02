@@ -1,9 +1,69 @@
-# rshell
-spring 2015 rshell project
+# cs100 homework projects
+
+#Contents
+	- ls
+	- rshell
 
 ##Author
-
 Jordan Kincer
+
+##Files
+
+README.md
+
+LICENSE
+
+Makefile
+
+./src
+
+./tests
+
+###./src content
+
+hw0.cpp
+
+hw1.cpp
+
+ls.h
+
+###./tests content
+
+exec.script
+
+ls.script
+
+# ls
+
+##Overview
+
+This program aims to recreate the bash command ls.
+
+This ls supports the flags:
+	- -l
+	- -a
+
+In the future the -R flag will be implemented correctly.
+
+The ls also supports pathnames that are passed in as arguments, and displays their contents appropriately.
+
+##Running ls
+
+Perform these commands to download and run the program:
+```
+	$ git clone https://github.com/jkinc002/rshell
+	$ cd rshell
+	$ git checkout hw1
+	$ make
+	$ bin/ls
+```
+
+##Known Bugs - ls
+
+R flag - Though intended to work, flagging R will cause the program to seg-fault. The problem is caused by a pointer being deallocated before it can be used.
+
+# rshell
+spring 2015 rshell project
 
 ##Overview
 
@@ -25,25 +85,6 @@ Just as well, a number of commands do NOT work in the rshell, such as:
 
 The rshell can also compile and run other programs (including itself).
 
-##Files
-
-README.md
-
-LICENSE
-
-Makefile
-
-./src
-
-./tests
-
-###./src content
-
-hw0.cpp
-
-###./tests content
-
-exec.script
 
 ##Running rshell
 
@@ -56,7 +97,7 @@ Perform these commands to download and run the program:
 	$ bin/rshell
 ```
 
-##Known Bugs
+##Known Bugs - rshell
 
 White space only - The program seg-faults whenever a command (whether on its own or between connectors) consists of ONLY whitespace.
 

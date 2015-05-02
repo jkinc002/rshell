@@ -38,6 +38,7 @@ void sort_v1(){
 	}
 }
 //======================================================================
+//======================================================================
 std::vector<std::string> v2;
 int v2_size = 0;
 //======================================================================
@@ -91,8 +92,8 @@ struct path {
 			std::cout << this->v.at(i);
 			if(i != 1) std::cout << '/';
 		}
-		std::cout << this->v.at(i)
-		<< ":\n";
+		if(i < this->v.size() && i > 1) std::cout << this->v.at(i) << ":\n";
+		else std::cout << this->v.at(0) << ":\n";
 	}
 };
 path p;
@@ -105,6 +106,7 @@ bool is_dot(const char* c){
 	return false;
 }
 //======================================================================
+int it = 0;
 struct myfile {
 	std::string permissions;
 	int space1;
@@ -121,7 +123,10 @@ struct myfile {
 	int space4;
 	int hours;
 	int minutes;
+	int space6;
 	const char* name;
+	int space5;
+	int iteration;
 	bool hidden;
 	bool directory;
 	bool executable;
@@ -144,8 +149,15 @@ struct myfile {
 		this->hidden = false;
 		this->directory = false;
 		this->executable = false;
+		this->space5 = 0;
 		p.pop_dir();
 	}
+	int name_size(){
+		int i=0;
+		for(;this->name[i]!='\0';++i){}
+		return i;
+	}
+			
 	void assign(dirent *drt){
 		p.push_dir(drt->d_name);
 		const char* c = drt->d_name;
@@ -229,6 +241,9 @@ struct myfile {
 		if(t->tm_hour >= 10) this->space4 = 0;
 		else this->space4 = 1;
 
+		if(t->tm_min >10) this->space6 = 0;
+		else this->space6 = 1;
+
 		this->hours = t->tm_hour;
 		this->minutes = t->tm_min;
 
@@ -237,13 +252,48 @@ struct myfile {
 		if(s.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH))this->executable = true;
 		else this->executable = false;
 		this->name = c;
+		this->space5 = 0;
 	}
 };
 //======================================================================
 struct mydir {
 	std::vector<myfile> v;
+	std::vector<std::string>v1;
+	std::vector<std::string>v2;
+	std::vector<std::string>v3;
+	std::vector<std::string>v4;
 	int link_length;
 	int size_length;
+	void format_iters(){
+		int s1 = 0;
+		int s2 = 0;
+		int s3 = 0;
+		int s4 = 0;
+		for(unsigned i=0;i<this->v.size();++i){
+			if(this->v.at(i).iteration == 0)
+				if(s1 < this->v.at(i).name_size()) s1 = this->v.at(i).name_size();
+			if(this->v.at(i).iteration == 1)
+				if(s2 < this->v.at(i).name_size()) s2 = this->v.at(i).name_size();
+			if(this->v.at(i).iteration == 2)
+				if(s3 < this->v.at(i).name_size()) s3 = this->v.at(i).name_size();
+			if(this->v.at(i).iteration == 3)
+				if(s4 < this->v.at(i).name_size()) s4 = this->v.at(i).name_size();
+		}
+		for(unsigned i=0;i<this->v.size();++i){
+			if(this->v.at(i).iteration == 0)
+				if(s1 > this->v.at(i).name_size())
+					this->v.at(i).space5 = s1 - this->v.at(i).name_size();
+			if(this->v.at(i).iteration == 1)
+				if(s2 > this->v.at(i).name_size())
+					this->v.at(i).space5 = s2 - this->v.at(i).name_size();
+			if(this->v.at(i).iteration == 2)
+				if(s3 > this->v.at(i).name_size())
+					this->v.at(i).space5 = s3 - this->v.at(i).name_size();
+			if(this->v.at(i).iteration == 3)
+				if(s4 > this->v.at(i).name_size())
+					this->v.at(i).space5 = s4 - this->v.at(i).name_size();
+		}
+	}
 	void clear(){
 		this->v.clear();
 		this->link_length = 0;
@@ -259,6 +309,22 @@ struct mydir {
 				this->size_length = this->v.at(i).size_length;
 		}
 	}
+	void get_iters(){
+		for(unsigned i=0;i<this->v.size();++i){
+			if(!f.a){
+				if(this->v.at(i).hidden);
+				else{
+					this->v.at(i).iteration = it;
+					++it;
+				}
+			}
+			else{
+				this->v.at(i).iteration = it;
+				++it;
+			}
+			if(it > 3) it = 0;
+		}
+	}
 	void sort_files(){
 		for(unsigned i=0;i<this->v.size();++i){
 			for(unsigned j=i;j<this->v.size();++j){
@@ -266,6 +332,7 @@ struct mydir {
 					std::swap(this->v.at(i),this->v.at(j));
 			}
 		}
+		this->get_iters();
 	}
 	void format_files(){
 		for(unsigned i=0;i<this->v.size();++i){
@@ -282,7 +349,7 @@ struct mydir {
 		}
 	}
 	void print_file(unsigned i){
-		if(i != 0) std::cout << '\t';
+		
 		if(this->v.at(i).directory){
 			std::cout << "\033[1;34m";
 		}
@@ -292,8 +359,33 @@ struct mydir {
 		if(this->v.at(i).hidden){
 			std::cout << "\033[40m";
 		}
+		
 		std::cout << this->v.at(i).name;
 		std::cout << "\033[0m";
+		if(this->v.at(i).iteration == 0){
+			for(int j=0;j<this->v.at(i).space5;++j){
+				std::cout << ' ';
+			}
+			std::cout << "  ";
+		}
+		if(this->v.at(i).iteration == 1){
+			for(int k=0;k<this->v.at(i).space5;++k){
+				std::cout << ' ';
+			}
+			std::cout << "  ";
+		}
+		if(this->v.at(i).iteration == 2){
+			for(int l=0;l<this->v.at(i).space5;++l){
+				std::cout << ' ';
+			}
+			std::cout << "  ";
+		}
+		if(this->v.at(i).iteration == 3){
+			for(int m=0;m<this->v.at(i).space5;++m){
+				std::cout << ' ';
+			}
+			std::cout << '\n';
+		}
 	}
 	void print_file_l(unsigned i){
 		std::cout << this->v.at(i).permissions
@@ -324,8 +416,11 @@ struct mydir {
 		}
 		std::cout << this->v.at(i).hours
 		<< ':'
-		<< this->v.at(i).minutes
-		<< ' ';
+		<< this->v.at(i).minutes;
+		for(int m=0;m<this->v.at(i).space6;++m){
+			std::cout << '0';
+		}
+		std::cout << ' ';
 		if(this->v.at(i).directory){
 			std::cout << "\033[1;34m";
 		}
@@ -340,6 +435,7 @@ struct mydir {
 		<< '\n';
 	}
 	void print_all(){
+		this->format_iters();
 		for(unsigned i=0;i<this->v.size();++i){
 			if(!f.a){
 				if(this->v.at(i).hidden == true);
@@ -371,9 +467,10 @@ int my_closedir(DIR *d){
 }
 dirent *my_readdir(DIR *d){
 	dirent *a = readdir(d);
-	if(a == NULL) perror("my_readdir");
 	return a;
 }
+//======================================================================
+
 //======================================================================
 void exec_1(const char *c){
 	if(c[0] == '.' && c[1] == '\0');
@@ -398,9 +495,9 @@ void exec_1(const char *c){
 
 }
 void exec_0(const char *c){
-	if(c[0] == '.' && c[1] == '\0');
-	else p.push_dir(c);
+	p.push_dir(c);
 	DIR *dir = my_opendir(c);
+	if(dir == NULL) return;
 	dirent *drt = my_readdir(dir);
 	myfile a;
 	mydir b;
@@ -423,6 +520,7 @@ void exec_0(const char *c){
 			exec_1(c1);
 		}
 	}
+
 	p.pop_dir();
 	b.clear();
 

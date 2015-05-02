@@ -1,0 +1,314 @@
+Script started on Fri 01 May 2015 06:39:51 PM PDT
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshell/testspowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell/tests$ cd ..
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ##########################testing defau lt las[K[Ks call
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ [K]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls
+LICENSE[0m  Makefile[0m  README.md[0m  [1;34mbin[0m
+[1;34msrc[0m      [1;34mtests[0m     
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ #############################testing l[K-l flag
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ./[K[Kbin/ls -l
+-rw-rw-r-- 1 powerpuddin powerpuddin 18027 Mar 31 13:25 LICENSE[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin   250 May  1 02:37 Makefile[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin  1572 Apr 17 02:56 README.md[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:20 [1;34mbin[0m
+drwxrwxr-x 4 powerpuddin powerpuddin  4096 May  1 18:20 [1;34msrc[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:39 [1;34mtests[0m
+
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ #############################testing -a flag
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ./[K[Kin[K[Kbin/ls -a
+[1;34m[40m.[0m         [1;34m[40m..[0m         [1;34m[40m.git[0m  LICENSE[0m
+Makefile[0m  README.md[0m  [1;34mbin[0m   [1;34msrc[0m    
+[1;34mtests[0m     
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ##############################testing -la -[K[K; -l -a; -al; -a -l f[K[K;[K flag combinations
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls -la; bin/ls -l -a; bin/ls -al [K; i[Kbin/ls -a -l
+drwxrwxr-x 6 powerpuddin powerpuddin  4096 May  1 02:37 [1;34m[40m.[0m
+drwxrwxr-x 3 powerpuddin powerpuddin  4096 Mar 31 13:25 [1;34m[40m..[0m
+drwxrwxr-x 8 powerpuddin powerpuddin  4096 May  1 18:18 [1;34m[40m.git[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin 18027 Mar 31 13:25 LICENSE[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin   250 May  1 02:37 Makefile[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin  1572 Apr 17 02:56 README.md[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:20 [1;34mbin[0m
+drwxrwxr-x 4 powerpuddin powerpuddin  4096 May  1 18:20 [1;34msrc[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:39 [1;34mtests[0m
+
+drwxrwxr-x 6 powerpuddin powerpuddin  4096 May  1 02:37 [1;34m[40m.[0m
+drwxrwxr-x 3 powerpuddin powerpuddin  4096 Mar 31 13:25 [1;34m[40m..[0m
+drwxrwxr-x 8 powerpuddin powerpuddin  4096 May  1 18:18 [1;34m[40m.git[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin 18027 Mar 31 13:25 LICENSE[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin   250 May  1 02:37 Makefile[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin  1572 Apr 17 02:56 README.md[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:20 [1;34mbin[0m
+drwxrwxr-x 4 powerpuddin powerpuddin  4096 May  1 18:20 [1;34msrc[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:39 [1;34mtests[0m
+
+drwxrwxr-x 6 powerpuddin powerpuddin  4096 May  1 02:37 [1;34m[40m.[0m
+drwxrwxr-x 3 powerpuddin powerpuddin  4096 Mar 31 13:25 [1;34m[40m..[0m
+drwxrwxr-x 8 powerpuddin powerpuddin  4096 May  1 18:18 [1;34m[40m.git[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin 18027 Mar 31 13:25 LICENSE[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin   250 May  1 02:37 Makefile[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin  1572 Apr 17 02:56 README.md[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:20 [1;34mbin[0m
+drwxrwxr-x 4 powerpuddin powerpuddin  4096 May  1 18:20 [1;34msrc[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:39 [1;34mtests[0m
+
+drwxrwxr-x 6 powerpuddin powerpuddin  4096 May  1 02:37 [1;34m[40m.[0m
+drwxrwxr-x 3 powerpuddin powerpuddin  4096 Mar 31 13:25 [1;34m[40m..[0m
+drwxrwxr-x 8 powerpuddin powerpuddin  4096 May  1 18:18 [1;34m[40m.git[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin 18027 Mar 31 13:25 LICENSE[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin   250 May  1 02:37 Makefile[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin  1572 Apr 17 02:56 README.md[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:20 [1;34mbin[0m
+drwxrwxr-x 4 powerpuddin powerpuddin  4096 May  1 18:20 [1;34msrc[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:39 [1;34mtests[0m
+
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ################################[K[K[K[Ktesting multiple flags
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls -l -l -l -l -l -l -a -a -a -a -a -a -a -a -a -a -a -a -la-[K -la -la -a[Kla -la -la -la -la
+drwxrwxr-x 6 powerpuddin powerpuddin  4096 May  1 02:37 [1;34m[40m.[0m
+drwxrwxr-x 3 powerpuddin powerpuddin  4096 Mar 31 13:25 [1;34m[40m..[0m
+drwxrwxr-x 8 powerpuddin powerpuddin  4096 May  1 18:18 [1;34m[40m.git[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin 18027 Mar 31 13:25 LICENSE[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin   250 May  1 02:37 Makefile[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin  1572 Apr 17 02:56 README.md[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:20 [1;34mbin[0m
+drwxrwxr-x 4 powerpuddin powerpuddin  4096 May  1 18:20 [1;34msrc[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:39 [1;34mtests[0m
+
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ##########################33[K[K##testing emtpy fo[Klag '-'
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls -
+LICENSE[0m  Makefile[0m  README.md[0m  [1;34mbin[0m
+[1;34msrc[0m      [1;34mtests[0m     
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ############################testing flag call without '-'
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls l
+my_opendir: No such file or directory
+Segmentation fault (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ############################3[Ktesting lf[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kbin/ls a
+my_opendir: No such file or directory
+Segmentation fault (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ##########################3[K##testing directory argument
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ..[K[Ksrc
+[1;32ma.out[0m    [1;34matest[0m  [1;34mbtest[0m  hw0.cpp[0m
+hw1.cpp[0m  ls.h[0m   
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls test[K[K[K[K..
+[1;34mrshell[0m  
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bint/ls ../..
+bash: bint/ls: No such file or directory
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ../..
+[1;34mOtherRepos[0m  [1;34mfirstrepo[0m    [1;34mhomework[0m   [1;34mlabs[0m    
+myinfo[0m      [1;34mmyucr-cs100[0m  [1;34mnotes[0m      [1;34mprojects[0m
+[1;34msamples[0m     [1;34mspringshell[0m  [1;34mucr-cs100[0m  
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ############################testing long [K path argument
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ../../../[K[K[K[K/ucr_cs100/assignments/hw[K[Khw
+my_opendir: No such file or directory
+Segmentation fault (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ../../ucr_cs100/assignments/hw[K[K[K
+my_opendir: No such file or directory
+Segmentation fault (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ../../ucr_cs100/assignments[K[K[K[K[K[K[K[K[K[K[K[K
+my_opendir: No such file or directory
+Segmentation fault (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ../..
+[1;34mOtherRepos[0m  [1;34mfirstrepo[0m    [1;34mhomework[0m   [1;34mlabs[0m    
+myinfo[0m      [1;34mmyucr-cs100[0m  [1;34mnotes[0m      [1;34mprojects[0m
+[1;34msamples[0m     [1;34mspringshell[0m  [1;34mucr-cs100[0m  
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin ../.. ucr-cs100
+No command 'bin' found, did you mean:
+ Command 'ben' from package 'ben' (universe)
+ Command 'tin' from package 'tin' (universe)
+ Command 'din' from package 'din' (universe)
+ Command 'bip' from package 'bip' (universe)
+ Command 'bino' from package 'bino' (universe)
+ Command 'bio' from package 'barry-util' (universe)
+ Command 'bins' from package 'bins' (universe)
+ Command 'win' from package 'wily' (universe)
+ Command 'bing' from package 'bing' (universe)
+bin: command not found
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ../../ucr-cs100
+LICENSE[0m   README.md[0m  [1;34massignments[0m  [1;34mcheatsheets[0m
+[1;34mgitlearn[0m  [1;34mpeople[0m     [1;34mtextbook[0m     [1;34mvideos[0m     
+
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ../../ucr-cs100/assignments
+[1;34mec[0m    [1;34mhw[0m  [1;34mlab[0m  [1;34mlinux[0m
+[1;34mquiz[0m  
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ../../ucr-cs100/assignments[Ks/hw
+[1;34mhw0-rshell[0m        [1;34mhw1-ls[0m  [1;34mhw2-piping[0m  [1;34mhw3-signals[0m
+[1;34mhw4-contributing[0m  
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ../../ucr-cs100/assignments/hw/hw1-la[Ks
+README.md[0m  grade[0m  
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ../../ucr-cs100/assignments/hw/hw1-ls/../../..
+LICENSE[0m   README.md[0m  [1;34massignments[0m  [1;34mcheatsheets[0m
+[1;34mgitlearn[0m  [1;34mpeople[0m     [1;34mtextbook[0m     [1;34mvideos[0m     
+
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ##############33333333333333333[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K############testing[K[K[K[K[K[K[K testing multiple '[K/.[K[K./ arguments
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/sls[K[K[Ksl[K[Kls ././././././././././././././././././././././././././././././././././.
+LICENSE[0m  Makefile[0m  README.md[0m  [1;34mbin[0m
+[1;34msrc[0m      [1;34mtests[0m     
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ././././././././././././././././././././././././././././././././././.[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K##################################3[K testing muil[K[K[Kl[Kultiple arguments
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls a[Ks[K.[K[K bin[K[K[K-a bin src[K[K[K[K[K[K[K[K . .. bin src tests
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+Aborted (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls -a . .. bin src testsh[Kj[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K.. [K[K .. bin src tests
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+Aborted (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls . .. bin src tests[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+Aborted (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls . ..[K[K[K
+LICENSE[0m  Makefile[0m  README.md[0m  [1;34mbin[0m
+[1;34msrc[0m      [1;34mtests[0m     
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ..
+[1;34mrshell[0m  
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ..[K ..
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+Aborted (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls . bin src tests
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+Aborted (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin / [K[K[K[Kn/ls bin src tests
+bin:
+[1;32mls[0m  [1;32mrshell[0m  
+
+src:
+[1;32ma.out[0m    [1;34matest[0m
+[1;34mbtest[0m  hw0.cpp[0m    hw1.cpp[0m  ls.h[0m 
+
+
+tests:
+exec.script[0m  ls.script[0m  
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls bin src tests tests
+bin:
+[1;32mls[0m  [1;32mrshell[0m  
+
+src:
+[1;32ma.out[0m    [1;34matest[0m
+[1;34mbtest[0m  hw0.cpp[0m    hw1.cpp[0m  ls.h[0m 
+
+
+tests:
+exec.script[0m  ls.script[0m  
+
+tests:
+exec.script[0m  ls.script[0m
+
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls bin src tests tests[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K. . . .
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+Aborted (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls src src srcf [K[K src src [K
+src:
+[1;32ma.out[0m    [1;34matest[0m  [1;34mbtest[0m  hw0.cpp[0m
+hw1.cpp[0m  ls.h[0m   
+
+src:
+[1;32ma.out[0m    [1;34matest[0m
+[1;34mbtest[0m  hw0.cpp[0m    hw1.cpp[0m  ls.h[0m 
+
+
+src:
+[1;32ma.out[0m    [1;34matest[0m      [1;34mbtest[0m  hw0.cpp[0m
+hw1.cpp[0m  ls.h[0m       
+
+src:
+[1;32ma.out[0m    [1;34matest[0m
+[1;34mbtest[0m  hw0.cpp[0m    hw1.cpp[0m  ls.h[0m 
+
+
+src:
+[1;32ma.out[0m    [1;34matest[0m      [1;34mbtest[0m  hw0.cpp[0m
+hw1.cpp[0m  ls.h[0m       
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/s[Kls -l .
+-rw-rw-r-- 1 powerpuddin powerpuddin 18027 Mar 31 13:25 LICENSE[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin   250 May  1 02:37 Makefile[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin  1572 Apr 17 02:56 README.md[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:20 [1;34mbin[0m
+drwxrwxr-x 4 powerpuddin powerpuddin  4096 May  1 18:20 [1;34msrc[0m
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:39 [1;34mtests[0m
+
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls -l . .
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+Aborted (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ################################3 tes[K[K[K[K[K testing -R flag
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls -R
+LICENSE[0m  Makefile[0m  README.md[0m  [1;34mbin[0m
+[1;34msrc[0m      [1;34mtests[0m     
+COMMIT_EDITMSG[0m  FETCH_HEAD[0m
+HEAD[0m         ORIG_HEAD[0m  [1;34mbranches[0m        config[0m    
+description[0m  [1;34mhooks[0m      index[0m           [1;34minfo[0m      
+[1;34mlogs[0m         [1;34mobjects[0m    packed-refs[0m     [1;34mrefs[0m      
+
+[1;32ma.out[0m    [1;34matest[0m  [1;34mbtest[0m  hw0.cpp[0m
+hw1.cpp[0m  ls.h[0m   
+exec.script[0m  ls.script[0m
+
+[1;32mls[0m  [1;32mrshell[0m  
+my_opendir: No such file or directory
+Segmentation fault (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls ..[K[K./src ./src.[K ./src ./src
+./src:
+[1;32ma.out[0m    [1;34matest[0m  [1;34mbtest[0m  hw0.cpp[0m
+hw1.cpp[0m  ls.h[0m   
+
+./src:
+[1;32ma.out[0m    [1;34matest[0m
+[1;34mbtest[0m  hw0.cpp[0m    hw1.cpp[0m  ls.h[0m 
+
+
+./src:
+[1;32ma.out[0m    [1;34matest[0m      [1;34mbtest[0m  hw0.cpp[0m
+hw1.cpp[0m  ls.h[0m       
+
+./src:
+[1;32ma.out[0m    [1;34matest[0m
+[1;34mbtest[0m  hw0.cpp[0m    hw1.cpp[0m  ls.h[0m 
+
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ testing[K[K[K[K[K[K[K######################################3 te[K[K[K[K testing whie[Kte space [K after default a[Kcall, and whitespca[K[Kace bete[Kween arguments
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls                                                                                                                                                                                    
+LICENSE[0m  Makefile[0m  README.md[0m  [1;34mbin[0m
+[1;34msrc[0m      [1;34mtests[0m     
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls                                            -l                                               -a                                                             ./[K[K[Ksrc                                                    tests                                                                      bin
+bin:
+drwxrwxr-x 2 powerpuddin powerpuddin   4096 May  1 18:20 [1;34m[40m.[0m
+drwxrwxr-x 6 powerpuddin powerpuddin   4096 May  1 02:37 [1;34m[40m..[0m
+-rwxrwxr-x 1 powerpuddin powerpuddin 160426 May  1 18:20 [1;32mls[0m
+-rwxrwxr-x 1 powerpuddin powerpuddin  93850 May  1 18:20 [1;32mrshell[0m
+
+
+src:
+drwxrwxr-x 4 powerpuddin powerpuddin   4096 May  1 18:20 [1;34m[40m.[0m
+drwxrwxr-x 6 powerpuddin powerpuddin   4096 May  1 02:37 [1;34m[40m..[0m
+-rw-r--r-- 1 powerpuddin powerpuddin  40960 May  1 18:20 [40m.ls.h.swn[0m
+-rw-r--r-- 1 powerpuddin powerpuddin  28672 May  1 12:00 [40m.ls.h.swo[0m
+-rw-r--r-- 1 powerpuddin powerpuddin  16384 Apr 30 17:33 [40m.ls.h.swp[0m
+-rwxrwxr-x 1 powerpuddin powerpuddin 159638 May  1 18:16 [1;32ma.out[0m
+drwxrwxr-x 2 powerpuddin powerpuddin   4096 Apr 29 12:47 [1;34matest[0m
+drwxrwxr-x 3 powerpuddin powerpuddin   4096 Apr 29 12:47 [1;34mbtest[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin   7792 Apr 30 12:21 hw0.cpp[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin    735 May  1 18:90 hw1.cpp[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin  12969 May  1 18:20 ls.h[0m
+
+
+tests:
+drwxrwxr-x 2 powerpuddin powerpuddin  4096 May  1 18:39 [1;34m[40m.[0m
+drwxrwxr-x 6 powerpuddin powerpuddin  4096 May  1 02:37 [1;34m[40m..[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin 25963 Apr 17 02:56 exec.script[0m
+-rw-rw-r-- 1 powerpuddin powerpuddin 20480 May  1 18:58 ls.script[0m
+
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/[K[K[K[K########################################## testing flags thad [K[K[Kt[Kat don't work
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls -a[Kq -r -p -t
+LICENSE[0m  Makefile[0m  README.md[0m  [1;34mbin[0m
+[1;34msrc[0m      [1;34mtests[0m     
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ #########################################te[K[K testing directory arguments that don't exist
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ bin/ls    [K[K[K[K p[Kfoo
+my_opendir: No such file or directory
+Segmentation fault (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ binl[K/ls foo1[K [K1 foo2 foo3 foo4
+my_opendir: No such file or directory
+Segmentation fault (core dumped)
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ exit
+exit
+
+Script done on Fri 01 May 2015 07:12:06 PM PDT
