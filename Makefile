@@ -1,15 +1,18 @@
 CFLAGS = -Wall -Werror -ansi -pedantic -g
 
-all: bin rshell ls
+all: bin rshell ls cp
 
 bin:
 	mkdir bin
 
-rshell:
+rshell: src/hw0.cpp
 	g++ $(CFLAGS) src/hw0.cpp -o ./bin/rshell
 
 ls:
 	g++ $(CFLAGS) src/hw1.cpp -o ./bin/ls
+
+cp: src/cp.cpp src/Timer.h
+	g++ $(CFLAGS) src/cp.cpp -o ./bin/cp
 
 clean:
 	rm -f *.0 rshell
