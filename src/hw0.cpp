@@ -7,6 +7,9 @@
 #include <stdio.h>				//use perror()
 #include <errno.h>				//use perror()
 #include <string.h>				//use strtok()
+#include <queue>
+#include <algorithm>
+#include <utility>
 
 
 
@@ -53,39 +56,6 @@ RETURN: char *name contains the NULL terminated host-name cstring
 		size_t len contains length of the host-name
 ==========================================================================
 */
-
-std::vector<std::string> conn_vector;
-
-void find_connectors(std::string &input){
-	for(unsigned i=0;i<input.size();++i){
-		if(input.at(i) == ';') conn_vector.push_back(";");
-		else if(i != input.size() - 1){
-			if(input.at(i) == '|' && input.at(i + 1) == '|'){
-				conn_vector.push_back("||");
-				++i;
-			}
-			else if(input.at(i) == '&' && input.at(i + 1) == '&'){
-				conn_vector.push_back("&&");
-				++i;
-			}
-		}
-	}
-}
-
-void token_comment(char *arr){
-	arr = strtok(arr, "#");
-}
-
-int token_connectors(char *cstr, char **argv){
-	int argc=0;
-	argv[argc] = strtok(cstr, ";|&");
-	while(argv[argc] != NULL){
-		++argc;
-		argv[argc] = strtok(NULL, ";|&");
-	}
-	return argc;
-}
-
 /*
 =========================================================================
 TOKEN_SPACES
@@ -106,53 +76,7 @@ Description:
 		of its elements
 ========================================================================
 */
-int execute_cmd(char** temp, unsigned i){
-	int fork_pid = fork();	
-	if(temp[0][0] == 'e' && temp[0][1] == 'x' && temp[0][2] == 'i'
-	&& temp[0][3] == 't' && temp[0][4] == '\0') return 2;
-	if(fork_pid == -1) perror("fork");
-	else if(fork_pid == 0){															//If inside Child process branch
-		int cmd_status = execvp(temp[0], temp);
-		if(cmd_status == -1){
-			perror("execvp");
-			exit(1);
-		}
-		else exit(0);
-	}
-	else{
-		int ret;
-		waitpid(fork_pid, &ret, 0);
-		if(0 < conn_vector.size() && i < conn_vector.size()){
-			if(ret == 0){
-				if(conn_vector.at(i) == "||") return 1;
-			}
-			else{
-				if(conn_vector.at(i) == "&&") return 1;
-			}
-		}
-	}
 
-return 0;
-}
-
-int token_spaces(char **argv, std::vector<char**>& argv_arr, int argc){
-	int argument = 0;
-	int word = 0;
-	while(argument < argc){
-		char *temp[1024];
-		temp[word] = strtok(argv[argument], " ");
-		while(temp[word] != NULL){
-			++word;
-			temp[word] = strtok(NULL, " ");
-		}
-		int ret = execute_cmd(temp, argument);
-		if(ret == 2) return 1;
-		else if(ret == 1) return 0;
-		++argument;
-		word = 0;
-	}
-	return 0;
-}
 /*
 ==========================================================================
 EXECUTE_CMDS
@@ -172,48 +96,74 @@ Description:
 	}
 ==========================================================================
 */
-/*
-int execute_cmds(std::vector<char**> &argv_arr){
-	unsigned i=0;
-	for(;i < argv_arr.size();++i){
-		int fork_pid = fork();	
-		char **temp = argv_arr.at(i);
-		if(temp[0][0] == 'e' && temp[0][1] == 'x' && temp[0][2] == 'i'
-		&& temp[0][3] == 't' && temp[0][4] == '\0') return 1;
-		if(fork_pid == -1) perror("fork");
-		else if(fork_pid == 0){															//If inside Child process branch
-			int cmd_status = execvp(temp[0], temp);
-			if(cmd_status == -1){
-				perror("execvp");
-				exit(1);
-			}
-			else exit(0);
+
+std::queue<char> connectors;
+
+std::string encrypt(std::string s){
+	std::string ret;
+	for(unsigned i=0;i<s.size();++i){
+		if(s.at(i) == ';') ret += "A-X-01";
+		else if(i < s.size() - 1 && (s.at(i) == '&' && s.at(i+1) == '&')){
+			ret += "A-X-02";
+			++i;
 		}
-		else{
-			int ret;
-			waitpid(fork_pid, &ret, 0);
-			if(0 < conn_vector.size() && i < conn_vector.size()){
-				if(ret == 0){
-					if(conn_vector.at(i) == "||") return 0;
-				}
-				else{
-					if(conn_vector.at(i) == "&&") return 0;
-				}
-			}
+		else if(i < s.size() - 1 && (s.at(i) == '|' && s.at(i+1) == '|')){
+			ret += "A-X-03";
+			++i;
+		}
+		else ret += s.at(i);
+	}
+	return ret;
+}
+
+std::vector<std::string>token_connectors(std::string s){
+	std::vector<std::string>ret;
+	std::string temp;
+	for(unsigned i=0;i<s.size();++i){
+		if(s.at(i)=='A' && s.at(i+1)=='-'
+		&& s.at(i+2)=='X' && s.at(i+3)=='-'
+		&& s.at(i+4)=='0' && s.at(i+5)=='1'
+		&& i < s.size() - 5){
+			ret.push_back(temp);
+			temp.clear();
+			i += 5;
+			connectors.push(';');
+		}
+		else if(s.at(i)=='A' && s.at(i+1)=='-'
+		&& s.at(i+2)=='X' && s.at(i+3)=='-'
+		&& s.at(i+4)=='0' && s.at(i+5)=='2'
+		&& i < s.size() - 5){
+			ret.push_back(temp);
+			temp.clear();
+			i += 5;
+			connectors.push('&');
+		}
+		else if(s.at(i)=='A' && s.at(i+1)=='-'
+		&& s.at(i+2)=='X' && s.at(i+3)=='-'
+		&& s.at(i+4)=='0' && s.at(i+5)=='3'
+		&& i < s.size() - 5){
+			ret.push_back(temp);
+			temp.clear();
+			i += 5;
+			connectors.push('|');
+		}
+		else {
+			temp += s.at(i);
 		}
 	}
-	return 0;
+	ret.push_back(temp);
+	return ret;
 }
-*/
+
+
+
 void print_info(){
 	char *login = getlogin();
 	if(login == NULL){
 		perror("getlogin");
 		std::cout << "unknown_user";
 	}
-	else{
-		for(int i=0;login[i]!='\0';++i)std::cout<<login[i];
-	}
+	else for(int i=0;login[i]!='\0';++i)std::cout << login[i];
 	std::cout << '@';
 	char hostname[64];
 	int host_status = gethostname(hostname, sizeof(hostname));
@@ -221,52 +171,125 @@ void print_info(){
 		perror("gethostname");
 		std::cout << "unknown_host";
 	}
-	else{
-		for(int j=0;hostname[j]!='\0';++j)std::cout<<hostname[j];
-	}
+	else for(int j=0;hostname[j]!='\0';++j)std::cout << hostname[j];
 }
 
-int main()
-{
-	while(1){
-	print_info();
-	std::cout << "$ ";
-	std::string input_string;
-	getline(std::cin, input_string);
-	if(input_string == "exit") return 0;
-	if(input_string == "");
-	else if(input_string.at(0) != '#'){
-
-		int size = input_string.size() + 1;
-
-		char *input_cstring = new char [size];
-
-		strcpy(input_cstring, input_string.c_str());
-
-		token_comment(input_cstring);
-
-		find_connectors(input_string);
-
-		char **argv = new char *[size];
-
-		int argc = token_connectors(input_cstring, argv);
-
-		std::vector<char **> argv_arr(argc);
-
-		int ret = token_spaces(argv, argv_arr, argc);
-
-		conn_vector.clear();
-
-		delete input_cstring;
-		delete argv;
-
-		if(ret == 1)exit(0);
-
-
-//		disp_3d_arr(argv_arr, argc);
+std::vector<char*>convert_vec(std::vector<std::string> v){
+	std::vector<char*> ret;
+	for(unsigned i=0;i<v.size();++i){
+		char *temp = new char [v.at(i).size() + 1];
+		strcpy(temp, v.at(i).c_str());
+		ret.push_back(temp);
+		temp = NULL;
+		delete temp;
 	}
+	return ret;
+}
 
+std::vector<char **>convert_vec2(std::vector<char*> v){
+	std::vector<char**> ret;
+	unsigned j=0;
+	for(unsigned i=0;i<v.size();++i){
+		char **temp = new char *[1024];
+		temp[j] = strtok(v.at(i)," ");
+		while(temp[j] != NULL){
+			++j;
+			temp[j] = strtok(NULL, " ");
+		}
+		if(temp[0]!=NULL) ret.push_back(temp);
+		else{
+			char c[1];
+			c[0] = ' ';
+			temp[0] = c;
+			temp[1] = NULL;
+		}
+		temp = NULL;
+		delete temp;
+		j = 0;
 	}
+	return ret;
+}
 
-return 0;
+bool run = true;
+
+int execute_cmd(char **c){
+	if(c[0][0] == 'e' && c[0][1] == 'x'
+	&& c[0][2] == 'i' && c[0][3] == 't'
+	&& c[0][4] == '\0') return 2;
+	int pid = fork();
+	if(pid == -1){
+		perror("fork");
+		return -1;
+	}
+	else if(pid == 0){
+		if(c == NULL) exit(0);
+		int cmd = execvp(c[0],c);
+		if(cmd == -1){
+			perror("execvp");
+			return -1;
+		}
+		else exit(0);
+	}
+	else{
+		int ret;
+		waitpid(pid,&ret,0);
+		if(ret == -1){
+			perror("waitpid");
+		}
+		if(connectors.size() != 0){
+			if(ret == 0){
+				if(connectors.front() == '|')return 1;
+			}
+			else{
+				if(connectors.front() == '&')return 1;
+			}
+			connectors.pop();
+		}
+	}
+	return 0;
+}
+
+std::string token_comment(std::string s){
+	std::string ret;
+	for(unsigned i=0;s.at(i) != '#' && i < s.size();++i){
+		ret += s.at(i);
+	}
+	return ret;
+}
+	
+
+int main(int argc, char *argv[]){
+	while(run){
+		print_info();
+		std::cout << "$ ";
+		std::string input_str;
+		getline(std::cin, input_str);
+		//input_str = token_comment(input_str);
+		input_str = encrypt(input_str);
+		std::vector<std::string> input_vec = token_connectors(input_str);
+		std::vector<char*>input_vec2 = convert_vec(input_vec);
+		std::vector<char **> input_vec3 = convert_vec2(input_vec2);
+		bool run2 = true;
+		for(unsigned i=0; run2 && i < input_vec3.size();++i){
+			int cmp = execute_cmd(input_vec3.at(i));
+			if(cmp == 1) run2 = false;
+			else if(cmp == 2) run = false;
+		}
+		std::queue<char> empty;
+		std::swap(connectors, empty);
+	}
+	/*
+	bool run = true;
+	while(run){
+		int size = input_str.size() + 1;
+		const char *input_cstr = input_str.c_str();
+	}
+	*/
+	
+
+
+
+
+
+	return 0;
 }
