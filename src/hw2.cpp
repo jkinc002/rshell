@@ -29,6 +29,20 @@ std::string encrypt(std::string s){
 			ret += "A-X-03";
 			++i;
 		}
+		else if( s.at(i) == '>'){
+			ret += ' ';
+			ret += s.at(i);
+			if(i < s.size() - 1 && s.at(i+1) == '>'){
+				++i;
+				ret += '>';
+			}
+			ret += ' ';
+		}
+		else if(s.at(i) == '<'){
+			ret += ' ';
+			ret += s.at(i);
+			ret += ' ';
+		}
 		else ret += s.at(i);
 	}
 	return ret;
@@ -167,7 +181,7 @@ int execute_cmd(char **c){
 					std::cout << "ERROR: Multiple '<' cases.\n";
 					exit(1);
 				}
-				else if(RightCount + RightCount2 > 1){
+				else if(RightCount + RightCount2 > 0){
 					std::cout << "ERROR: Case of '>' or '>>' preceding '<'.\n";
 					exit(1);
 				}
@@ -236,7 +250,7 @@ int execute_cmd(char **c){
 					exit(1);
 				}
 				order.pop();
-				if(order.front() != ">" && order.front() != ">>"){
+				if(order.empty()){
 					if(execvp(c[0],c) == -1){
 						perror("execvp");
 						exit(1);
