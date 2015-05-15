@@ -1,0 +1,350 @@
+Script started on Fri 15 May 2015 08:27:06 AM PDT
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshell/testspowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell/tests$ cd ..
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ l[Kcd src
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshell/srcpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell/src$ ls
+[0m[37;41m<[0m      [01;34matest[0m  [01;32mcat[0m     file2    hw1.cpp  ls.h    sass   test   Timer.h
+[01;32ma.out[0m  [01;34mbtest[0m  cp.cpp  hw0.cpp  hw2.cpp  myio.h  t.cpp  test1
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshell/srcpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell/src$ ./a.out
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ ####################################testing input redirection
+execvp: No such file or directory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ ls >      sort < test
+<
+<
+a.out
+a.out
+atest
+atest
+btest
+btest
+cat
+cat
+cp.cpp
+cp.cpp
+file2
+file2
+hw0.cpp
+hw0.cpp
+hw1.cpp
+hw1.cpp
+hw2.cpp
+hw2.cpp
+ls.h
+ls.h
+myio.h
+myio.h
+sass
+sass
+t.cpp
+t.cpp
+test
+test
+test1
+test1
+Timer.h
+Timer.h
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ uniq    ha ead < test
+<
+a.out
+atest
+btest
+cat
+cp.cpp
+file2
+hw0.cpp
+hw1.cpp
+hw2.cpp
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ foo < test
+execvp: No such file or directory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ head < foo
+open: No such file or directory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ ###################################testing output redirectoin    tion
+execvp: No such file or directory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$        ls >>  test         pwd > est   test
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ cat test
+/home/powerpuddin/Desktop/cs100/springshell/rshell/src
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ ls >> test
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ cat test
+/home/powerpuddin/Desktop/cs100/springshell/rshell/src
+<
+a.out
+atest
+btest
+cat
+cp.cpp
+file2
+hw0.cpp
+hw1.cpp
+hw2.cpp
+ls.h
+myio.h
+sass
+t.cpp
+test
+test1
+Timer.h
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ ca  ls >> test
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ cat test
+/home/powerpuddin/Desktop/cs100/springshell/rshell/src
+<
+a.out
+atest
+btest
+cat
+cp.cpp
+file2
+hw0.cpp
+hw1.cpp
+hw2.cpp
+ls.h
+myio.h
+sass
+t.cpp
+test
+test1
+Timer.h
+<
+a.out
+atest
+btest
+cat
+cp.cpp
+file2
+hw0.cpp
+hw1.cpp
+hw2.cpp
+ls.h
+myio.h
+sass
+t.cpp
+test
+test1
+Timer.h
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ foo >  > test
+execvp: No such file or directory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ cat   ls >> foo
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ 
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ #####################3o  comin  bining output & input                I/O redirection
+execvp: No such file or directory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$        sort < test > test1
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ cat test1
+<
+<
+a.out
+a.out
+atest
+atest
+btest
+btest
+cat
+cat
+cp.cpp
+cp.cpp
+file2
+file2
+/home/powerpuddin/Desktop/cs100/springshell/rshell/src
+hw0.cpp
+hw0.cpp
+hw1.cpp
+hw1.cpp
+hw2.cpp
+hw2.cpp
+ls.h
+ls.h
+myio.h
+myio.h
+sass
+sass
+t.cpp
+t.cpp
+test
+test
+test1
+test1
+Timer.h
+Timer.h
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ uniz q tes   < test >> test2 1
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ cat test1
+<
+<
+a.out
+a.out
+atest
+atest
+btest
+btest
+cat
+cat
+cp.cpp
+cp.cpp
+file2
+file2
+/home/powerpuddin/Desktop/cs100/springshell/rshell/src
+hw0.cpp
+hw0.cpp
+hw1.cpp
+hw1.cpp
+hw2.cpp
+hw2.cpp
+ls.h
+ls.h
+myio.h
+myio.h
+sass
+sass
+t.cpp
+t.cpp
+test
+test
+test1
+test1
+Timer.h
+Timer.h
+/home/powerpuddin/Desktop/cs100/springshell/rshell/src
+<
+a.out
+atest
+btest
+cat
+cp.cpp
+file2
+hw0.cpp
+hw1.cpp
+hw2.cpp
+ls.h
+myio.h
+sass
+t.cpp
+test
+test1
+Timer.h
+<
+a.out
+atest
+btest
+cat
+cp.cpp
+file2
+hw0.cpp
+hw1.cpp
+hw2.cpp
+ls.h
+myio.h
+sass
+t.cpp
+test
+test1
+Timer.h
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ ###################################testing coman  mands with flags
+execvp: No such file or directory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ ls -a > test
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ cat test
+<
+.
+..
+a.out
+atest
+btest
+cat
+cp.cpp
+file2
+foo
+hw0.cpp
+.hw0.cpp.swp
+hw1.cpp
+hw2.cpp
+.hw2.cpp.swp
+ls.h
+.ls.h.swo
+.ls.h.swp
+myio.h
+.myio.h.swp
+sass
+t.cpp
+.t.cpp.swm
+.t.cpp.swn
+.t.cpp.swo
+.t.cpp.swp
+test
+test1
+Timer.h
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ ls  -  -l >> test
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ cat test
+<
+.
+..
+a.out
+atest
+btest
+cat
+cp.cpp
+file2
+foo
+hw0.cpp
+.hw0.cpp.swp
+hw1.cpp
+hw2.cpp
+.hw2.cpp.swp
+ls.h
+.ls.h.swo
+.ls.h.swp
+myio.h
+.myio.h.swp
+sass
+t.cpp
+.t.cpp.swm
+.t.cpp.swn
+.t.cpp.swo
+.t.cpp.swp
+test
+test1
+Timer.h
+total 200
+-rws--s--T 1 powerpuddin powerpuddin      0 May 15 07:28 <
+-rwxrwxr-x 1 powerpuddin powerpuddin 116507 May 15 08:26 a.out
+drwxrwxr-x 2 powerpuddin powerpuddin   4096 Apr 29 12:47 atest
+drwxrwxr-x 3 powerpuddin powerpuddin   4096 Apr 29 12:47 btest
+-rwx-w---T 1 powerpuddin powerpuddin     12 May 14 10:12 cat
+-rw-rw-r-- 1 powerpuddin powerpuddin   3937 May 13 00:21 cp.cpp
+-rw-rw-r-- 1 powerpuddin powerpuddin      0 May 14 18:40 file2
+---------- 1 powerpuddin powerpuddin    107 May 15 08:29 foo
+-rw-rw-r-- 1 powerpuddin powerpuddin   8164 May  8 19:59 hw0.cpp
+-rw-rw-r-- 1 powerpuddin powerpuddin    735 May  1 18:09 hw1.cpp
+-rw-rw-r-- 1 powerpuddin powerpuddin   4428 May 15 08:07 hw2.cpp
+-rw-rw-r-- 1 powerpuddin powerpuddin  13030 May  1 19:53 ls.h
+-rw-rw-r-- 1 powerpuddin powerpuddin   4542 May 15 08:24 myio.h
+-rw-rw-r-- 1 powerpuddin powerpuddin      0 May 14 18:52 sass
+-rw-rw-r-- 1 powerpuddin powerpuddin   4428 May 15 01:26 t.cpp
+-rw-rw-r-- 1 powerpuddin powerpuddin    214 May 15 08:33 test
+-rw-rw-r-- 1 powerpuddin powerpuddin    522 May 15 08:30 test1
+-rw-rw-r-- 1 powerpuddin powerpuddin   2698 May  8 19:54 Timer.h
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop$ exit
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshell/srcpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell/src$ exit
+exit
+
+Script done on Fri 15 May 2015 08:34:13 AM PDT

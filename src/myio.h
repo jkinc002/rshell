@@ -129,7 +129,6 @@ int decipher(char **c){
 				++l;
 				++i;
 			}
-			std::cout << "02\n";
 			i -= 1;
 			filters.push(temp1);
 			temp1 = NULL;

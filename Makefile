@@ -5,8 +5,8 @@ all: bin rshell ls cp
 bin:
 	mkdir bin
 
-rshell: src/hw0.cpp
-	g++ $(CFLAGS) src/hw0.cpp -o ./bin/rshell
+rshell: src/hw2.cpp src/myio.h
+	g++ $(CFLAGS) src/hw2.cpp -o ./bin/rshell
 
 ls:
 	g++ $(CFLAGS) src/hw1.cpp -o ./bin/ls
