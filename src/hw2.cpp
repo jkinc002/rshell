@@ -14,6 +14,8 @@
 #include <sys/stat.h>
 #include <fstream>
 #include <istream>
+#include <stack>
+#include "myio.h"
 
 std::queue<char> connectors;
 
@@ -126,6 +128,7 @@ std::vector<char **>convert_vec2(std::vector<char*> v){
 			++j;
 			temp[j] = strtok(NULL, " ");
 		}
+		temp[j] = NULL;
 		if(temp[0]!=NULL) ret.push_back(temp);
 		else{
 			char c[1];
@@ -144,17 +147,7 @@ std::vector<char **>convert_vec2(std::vector<char*> v){
 bool run = true;
 
 int execute_cmd(char **c){
-	if(c[0][0] == 'e' && c[0][1] == 'x'
-	&& c[0][2] == 'i' && c[0][3] == 't'
-	&& c[0][4] == '\0') return 2;
-
-	int fdin = 0;
-	int fdout = 1;
-	int fd[2];
-	if(pipe(fd) == -1){
-		perror("pipe");
-		return 1;
-	}
+	if(isExit(c[0])) return 2;
 
 	int pid = fork();
 	if(pid == -1){
@@ -163,211 +156,27 @@ int execute_cmd(char **c){
 	}
 	else if(pid == 0){
 		if(c == NULL) exit(0);
-		char *command[64];
-		char *inputFile = NULL;
-		char *outputFile = NULL;
-
-		std::queue<std::string> order;
-
-		int leftCount = 0;
-		int RightCount = 0;
-		int RightCount2 = 0;
-		
-		for(unsigned i=0;c[i]!=NULL;++i){
-			if(c[i][0] == '<' && c[i][1] == '\0'){
-				++leftCount;
-				order.push("<");
-				if(leftCount > 1){
-					std::cout << "ERROR: Multiple '<' cases.\n";
-					exit(1);
-				}
-				else if(RightCount + RightCount2 > 0){
-					std::cout << "ERROR: Case of '>' or '>>' preceding '<'.\n";
-					exit(1);
-				}
-				unsigned j=0;
-				for(;j<i;++j){
-					command[j] = c[j];
-				}
-				command[j] = NULL;
-				++j;
-				if(c[j]!=NULL && leftCount == 1)inputFile = c[j];
-			}
-			else if(c[i][0] == '>' && c[i][1] == '\0'){
-				++RightCount;
-				order.push(">");
-				if(RightCount + RightCount2 > 1){
-					std::cout << "ERROR: Multiple '>' and/or '>>' cases.\n";
-					exit(1);
-				}
-				unsigned l=0;
-				if(leftCount == 0){
-					for(;l<i;++l){
-						command[l] = c[l];
-					}
-					command[l] = NULL;
-				}
-				++i;
-				if(c[i]!=NULL && RightCount == 1)outputFile = c[i];
-			}
-			else if(c[i][0] == '>' && c[i][1] == '>' && c[i][2] == '\0'){
-				++RightCount2;
-				order.push(">>");
-				if(RightCount + RightCount2 > 1){
-					std::cout << "ERROR: Multiple '>' and/or '>>' cases.\n";
-					exit(1);
-				}
-				unsigned m=0;
-				if(leftCount == 0){
-					for(;m<i;++m){
-						command[m] = c[m];
-					}
-				command[m] = NULL;
-				}
-				++i;
-				if(c[i]!=NULL && RightCount2 == 1)outputFile = c[i];
-			}
-		}
-		if(order.size() > 0)c = command;
-		while(!(order.empty())){
-			if(order.front() == "<"){
-				int fd1 = open(inputFile,O_RDONLY);
-				if(fd1 == -1){
-					perror("open");
-					exit(1);
-				}
-				int saveIn = dup(0);
-				if(saveIn == -1){
-					perror("dup");
-					exit(1);
-				}
-				if(dup2(fd1,0) == -1){
-					perror("dup2");
-					exit(1);
-				}
-				if(close(fd1) == -1){
-					perror("close");
-					exit(1);
-				}
-				order.pop();
-				if(order.empty()){
-					if(execvp(c[0],c) == -1){
-						perror("execvp");
-						exit(1);
-					}
-					if(dup2(saveIn, 1) == -1){
-						perror("dup2");
-						exit(1);
-					}
-					if(close(saveIn) == -1){
-						perror("close");
-						exit(1);
-					}
-				}
-				else if(order.front() == ">" || order.front() == ">>"){
-					int fd3;
-					if(order.front() == ">")
-						fd3 = open(outputFile,O_CREAT | O_WRONLY | O_TRUNC);
-					if(order.front() == ">>")
-						fd3 = open(outputFile,O_CREAT | O_WRONLY | O_APPEND);
-					if(fd3 == -1){
-						perror("open");
-						exit(1);
-					}
-					int saveOut2 = dup(1);
-					if(saveOut2 == -1){
-						perror("dup");
-						exit(1);
-					}
-					if(dup2(fd3,1) == -1){
-						perror("dup2");
-						exit(1);
-					}
-					if(close(fd3) == -1){
-						perror("close");
-						exit(1);
-					}
-					if(execvp(c[0],c) == -1){
-						perror("execvp");
-						exit(1);
-					}
-					if(dup2(saveOut2,1) == -1){
-						perror("dup2");
-						exit(1);
-					}
-					if(close(saveOut2) == -1){
-						perror("close");
-						exit(1);
-					}
-					order.pop();
-				}
-			}
-			else if(order.front() == ">" || order.front() == ">>"){
-				int fd2;
-				if(order.front() == ">")
-					fd2 = open(outputFile,O_CREAT | O_WRONLY | O_TRUNC);
-				else if(order.front() == ">>")
-					fd2 = open(outputFile,O_CREAT | O_WRONLY | O_APPEND);
-				if(fd2 == -1){	
-					perror("open");
-					exit(1);
-				}
-				int saveOut = dup(1);
-				if(saveOut == -1){ perror("dup");
-					exit(1);
-				}
-				if(dup2(fd2,1) == -1){	
-					perror("dup2");
-					exit(1);
-				}
-				if(close(fd2) == -1){	
-					perror("close");
-					exit(1);
-				}
-				if(execvp(c[0],c) == -1){
-					perror("execvp");
-					exit(1);
-				}
-				if(dup2(saveOut,1) == -1){
-					perror("dup2");
-					exit(1);
-				}
-				if(close(saveOut) == -1){
-					perror("close");
-					exit(1);
-				}
-			}
-		}
-		if(order.size() == 0){
-			int cmd = execvp(c[0],c);
-			if(cmd == -1){
+		int ret = decipher(c);
+		if(ret == 1) exit(1);
+		if(ret == 3){
+			if(execvp(c[0],c) == -1){
 				perror("execvp");
-				return -1;
+				exit(1);
 			}
-			else exit(0);
 		}
 		exit(0);
 	}
 	else{
-		int ret;
-		waitpid(pid,&ret,0);
-		if(ret == -1){
+		int ret2;
+		waitpid(pid,&ret2,0);
+		if(ret2 == -1){
 			perror("waitpid");
-		}
-		if(connectors.size() != 0){
-			if(ret == 0){
-				if(connectors.front() == '|')return 1;
-			}
-			else{
-				if(connectors.front() == '&')return 1;
-			}
-			connectors.pop();
 		}
 	}
 	return 0;
-	
 }
 
+		
 std::string token_comment(std::string s){
 	std::string ret;
 	for(unsigned i=0;s.at(i) != '#' && i < s.size();++i){
