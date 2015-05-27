@@ -146,11 +146,15 @@ std::vector<char **>convert_vec2(std::vector<char*> v){
 
 
 bool run = true;
-void mychdir(int n){
+void mychdir(int n, char *c){
 	if(n == 0){
 		const char *homedir = getenv("HOME");
 		if(homedir == NULL){
 			perror("getenv");
+			return;
+		}
+		if(setenv("PWD", homedir, 1) == -1){
+			perror("setenv");
 			return;
 		}
 		if(chdir(homedir) == -1){
@@ -170,20 +174,38 @@ void mychdir(int n){
 		for(;j<lastdash;++j){
 			prevdir[j]=currpath[j];
 		}
+		prevdir[j] = '\0';
+		if(setenv("PWD", prevdir, 1) == -1){
+			perror("setenv");
+			return;
+		}
+
 		if(chdir(prevdir) == -1){
 			perror("chdir");
 			return;
 		}
-		return;
+				return;
 	}
+	else{
+		char *userpath = c;
+		if(setenv("PWD", userpath, 1) == -1){
+			perror("setenv");
+			return;
+		}
+		if(chdir(userpath) == -1){
+			perror("chdir");
+			return;
+		}
+	}
+	return;
 }
 
 int iscd(char **c){
 	if(c[0][0] == 'c' && c[0][1] == 'd'
 	&& c[0][2] == '\0'){
-		if(c[1] == NULL) mychdir(0);
-		else if(c[1][0] == '-' && c[1][1] == '\0') mychdir(1);
-		else std::cout << "cd PATH\n";
+		if(c[1] == NULL) mychdir(0, NULL);
+		else if(c[1][0] == '-' && c[1][1] == '\0') mychdir(1,NULL);
+		else mychdir(2,c[1]);
 		return 0;
 	}
 	return 1;
@@ -234,7 +256,10 @@ std::string token_comment(std::string s){
 
 void sighandler(int signum, siginfo_t *info, void *ptr){
 	if(signum == SIGINT){
-		std::cout << "\n\n\n\n\n";
+		if(getpid() == 0){
+			exit(1);
+		}
+		else std::cout << '\n';
 	}
 	//exit(1);
 }
@@ -243,7 +268,18 @@ void print_wd(){
 	if(getcwd(cwd,sizeof(cwd)) == NULL){
 		perror("getcwd");
 	}
-	std::cout << cwd;
+	std::string ec_cwd = cwd;
+	int i = ec_cwd.find("/home");
+	int count = 0;
+	for(unsigned j=0;j<ec_cwd.size();++j){
+		if(j!=i && j!= i + 1 && j != i + 2
+		&& j != i + 3 && j != i + 4)std::cout << ec_cwd.at(j);
+		else{
+			if(count == 0) std::cout << '~';
+			++count;
+		}
+	}
+
 }
 
 int main(int argc, char *argv[]){
