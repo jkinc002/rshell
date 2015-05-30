@@ -164,35 +164,62 @@ void mychdir(int n, char *c){
 	}
 	else if(n == 1){
 		char *currpath = getenv("PWD");
+		if(currpath == NULL){
+			perror("getenv");
+			return;
+		}
+		char *homecomp = getenv("HOME");
+		if(homecomp == NULL){
+			perror("getenv");
+			return;
+		}
+		if(currpath == homecomp){
+			return;
+		}
 		unsigned i=0;
 		unsigned lastdash = 0;
 		for(;currpath[i]!='\0';++i){
 			if(currpath[i] == '/') lastdash = i;
 		}
-		char prevdir[lastdash + 1];
+		char *prevdir = new char[lastdash + 1];
 		unsigned j=0;
 		for(;j<lastdash;++j){
 			prevdir[j]=currpath[j];
 		}
 		prevdir[j] = '\0';
-		if(setenv("PWD", prevdir, 1) == -1){
+		char* fixdir = prevdir;
+		if(setenv("PWD", fixdir, 1) == -1){
 			perror("setenv");
+			prevdir = NULL;
+			delete prevdir;
 			return;
 		}
 
 		if(chdir(prevdir) == -1){
 			perror("chdir");
+			prevdir = NULL;
+			delete prevdir;
 			return;
 		}
-				return;
+		prevdir = NULL;
+		delete prevdir;
+		return;
 	}
 	else{
-		char *userpath = c;
-		if(setenv("PWD", userpath, 1) == -1){
+		char *temppath = getenv("PWD");
+		if(temppath == NULL){
+			perror("getenv");
+			return;
+		}
+		std::string tempstr = temppath;
+		tempstr += '/';
+		tempstr += c;
+		const char* userpath2 = tempstr.c_str();
+		if(setenv("PWD", userpath2, 1) == -1){
 			perror("setenv");
 			return;
 		}
-		if(chdir(userpath) == -1){
+		if(chdir(userpath2) == -1){
 			perror("chdir");
 			return;
 		}
@@ -247,7 +274,8 @@ struct sigaction old;
 		
 std::string token_comment(std::string s){
 	std::string ret;
-	for(unsigned i=0;s.at(i) != '#' && i < s.size();++i){
+	for(unsigned i=0;i < s.length();++i){
+		if(s.at(i) == '#') return ret;
 		ret += s.at(i);
 	}
 	
@@ -256,7 +284,12 @@ std::string token_comment(std::string s){
 
 void sighandler(int signum, siginfo_t *info, void *ptr){
 	if(signum == SIGINT){
-		if(getpid() == 0){
+		int ret = getpid();
+		if(ret == -1){
+			perror("getpid");
+			return;
+		}
+		if(ret == 0){
 			exit(1);
 		}
 		else std::cout << '\n';
@@ -268,18 +301,20 @@ void print_wd(){
 	if(getcwd(cwd,sizeof(cwd)) == NULL){
 		perror("getcwd");
 	}
-	std::string ec_cwd = cwd;
-	int i = ec_cwd.find("/home");
-	int count = 0;
-	for(unsigned j=0;j<ec_cwd.size();++j){
-		if(j!=i && j!= i + 1 && j != i + 2
-		&& j != i + 3 && j != i + 4)std::cout << ec_cwd.at(j);
-		else{
-			if(count == 0) std::cout << '~';
-			++count;
-		}
+	const char* homedir = getenv("HOME");
+	if(homedir == NULL){
+		perror("getenv");
 	}
-
+	std::string newwd = cwd;
+	unsigned i = newwd.find(homedir);
+	if(i == std::string::npos){
+		std::cout << newwd;
+		return;
+	}
+	int j = 0;
+	for(;homedir[j]!='\0';++j){}
+	newwd.replace(i,j, "~");
+	std::cout << newwd;
 }
 
 int main(int argc, char *argv[]){
@@ -296,7 +331,7 @@ int main(int argc, char *argv[]){
 		std::cout << "$ ";
 		std::string input_str;
 		getline(std::cin, input_str);
-		//input_str = token_comment(input_str);
+		input_str = token_comment(input_str);
 		input_str = encrypt(input_str);
 		std::vector<std::string> input_vec = token_connectors(input_str);
 		std::vector<char*>input_vec2 = convert_vec(input_vec);

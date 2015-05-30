@@ -1,0 +1,151 @@
+Script started on Fri 29 May 2015 04:24:35 PM PDT
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshell/testspowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell/tests$ cd ..
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ #################################### clearing[K[K[K[K[K[K[K[Kmaking[K[K[K[K[K[Kmake'[K and [K[K[K[K[K[K[K[Kaking and u[Krunning rshell
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ make/[K; rshell
+g++ -Wall -Werror -ansi -pedantic -g src/hw3.cpp -o ./bin/rshell
+g++ -Wall -Werror -ansi -pedantic -g src/hw1.cpp -o ./bin/ls
+g++ -Wall -Werror -ansi -pedantic -g src/cp.cpp -o ./bin/cp
+No command 'rshell' found, did you mean:
+ Command 'pshell' from package 'python-pyramid' (universe)
+ Command 'lshell' from package 'lshell' (universe)
+ Command 'bshell' from package 'avahi-ui-utils' (universe)
+rshell: command not found
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ make; bin/rshell
+g++ -Wall -Werror -ansi -pedantic -g src/hw3.cpp -o ./bin/rshell
+g++ -Wall -Werror -ansi -pedantic -g src/hw1.cpp -o ./bin/ls
+g++ -Wall -Werror -ansi -pedantic -g src/cp.cpp -o ./bin/cp
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ################################### rshell ru nnin     nning, testing ' ^C inside shell     rshell
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ####################################  testing ^C inside cat command via rshell            from rshell
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ cat
+^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ##################################3   # ^C returned          inside cat returned to rshell         it to rshell
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ #################################### ^t  testing a bunch of ^C calls
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ^C
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ###################################3 # testing 'cd -' to tg  go to previous directry  ory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ cd -
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell$ #############################################   notice my  the working directory y inside the prompt is up to date
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell$ ########################################### I will        t   using       I will use ' the pwd command to verify which directory the terminal is inside from        every now and t               fom  rom now on
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell$ cd  p cd -   -;  pwd
+/home/powerpuddin/Desktop/cs100
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100$ cd -pwd   ;pwd
+/home/powerpuddin/Desktop
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop$ cd -: ;pwd
+/home/powerpuddin
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~$ #################################################################### using     testing 'cd <path>' with various lengths
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~$ cd Desktop
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop$ cd DEsktop      esktop       cs100/springshell/rshell       
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell$ pwd
+/home/powerpuddin/Desktop/cs100/springshell
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell$ cd -    ######################################## testing 'cd' to go to home   ome directory              "HOME" directory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell$ cd; pwd
+/home/powerpuddin
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~$ cd Desktop/r cs1--/   0-0 0  0/springshell/rshell
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ pwd
+/home/powerpuddin/Desktop/cs100/springshell/rshell
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ############################### testing non existant directory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ cd foo/bar    ;pwd
+chdir: No such file or directory
+/home/powerpuddin/Desktop/cs100/springshell/rshell
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ cd foo/bar;pwd
+chdir: No such file or directory
+/home/powerpuddin/Desktop/cs100/springshell/rshell
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ ######################################## testing assorm  rtments of the cd f command
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ cd -
+chdir: No such file or directory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ pwd
+/home/powerpuddin/Desktop/cs100/springshell/rshell
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ cd;pwd
+/home/powerpuddin
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~$ cd ;     Deskl tp p op/cs100/../cs100
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100$ pwd
+/home/powerpuddin/Desktop/cs100
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100$ cd Dedsk   sktop/cs          springshell/rshell/r src/../../..  ;pwd
+/home/powerpuddin/Desktop/cs100
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100$ cd -;cd cs100
+chdir: No such file or directory
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell$ pwd
+/home/powerpuddin/Desktop/cs100/springshell
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell$ cd -
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell$ pwd
+/home/powerpuddin/Desktop/cs100/springshell
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell$ ######################################## DONE
+getlogin: No such file or directory
+unknown_user@Jordan's-Laptop:~/Desktop/cs100/springshell$ exit
+]0;powerpuddin@Jordan's-Laptop: ~/Desktop/cs100/springshell/rshellpowerpuddin@Jordan's-Laptop:~/Desktop/cs100/springshell/rshell$ exit
+exit
+
+Script done on Fri 29 May 2015 04:53:14 PM PDT
